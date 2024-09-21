@@ -1,0 +1,289 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #000000;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.vanilla:hover {
+  filter: drop-shadow(0 0 2em #f7df1eaa);
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* 确保 canvas 元素全屏显示 */
+#visualizer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black; /* 设定背景色为黑色，使可视化效果更明显 */
+  z-index: 0; /* 确保 canvas 元素在其他内容之下 */
+}
+
+#console {
+position: absolute;
+top: 20%;
+left: 10%;
+color: #0f0;
+font-family: Cascadia code;
+font-size: 12px;
+white-space: pre;
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(90deg); }
+}
+
+.vinyl-image {
+width: 80px; /* 设置图片宽度 */
+height: 80px; /* 设置图片高度 */
+image-rendering: pixelated; /* 确保图片显示为像素化 */
+image-rendering: crisp-edges; /* 一些浏览器的兼容性处理 */
+margin: 5px 10px 5px 0; /* 调整间距 */
+display: block; /* 确保图片按块元素显示 */
+filter: grayscale(0.6)
+}
+
+/* 滑入动画 */
+@keyframes slideIn {
+0% {
+    transform: translateX(100%); /* 从右侧外部开始 */
+    opacity: 0;
+}
+100% {
+    transform: translateX(0); /* 回到初始位置 */
+    opacity: 1;
+}
+}
+
+#sticky-note {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 20%;
+  font-family: 'Source Code Pro', monospace, bold;
+  display: none; /* 初始隐藏，等待动画触发 */
+  animation: slideIn 1s ease-out forwards; /* 滑入动画，持续1秒 */
+  animation-delay: 1s; /* 延迟1秒后开始动画 */
+  box-shadow: 4px 4px 0px 0px #ccc, 8px 8px 0px 0px #999; /* 像素风格的灰色投影 */
+  z-index: 3;
+}
+
+#sticky-note-small {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 200px;
+  font-family: 'Source Code Pro', monospace;
+  display: none;
+  z-index: 2; /* 设置 z-index 更高，确保在画布之上 */
+}
+
+#letter {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: white;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 14px;
+  background-color: black;
+  padding: 10px;
+  white-space: pre-wrap;
+  z-index: 98;
+  max-width: 400px; /* 限制文本区域的最大宽度 */
+  display: none; /* 默认隐藏，直到打字机效果开始 */
+  border: 2px solid white; /* 添加2像素的白色边框 */
+}
+
+#sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0) 60%); /* 渐变背景 */
+  overflow: hidden;
+  z-index: 2; /* 确保在内容后面 */
+}
+
+/* Tooltip styling */
+.moon {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0);
+  background-size: cover;
+  image-rendering: pixelated; /* Ensure the texture looks pixelated */
+  border-radius: 50%; /* Keep it circular */
+  z-index: 3; /* Keep it above the background */
+  transition: transform 0.3s ease; /* Smooth scaling on hover */
+}
+
+.star {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: white;
+  border-radius: 0%;
+  image-rendering: pixelated;
+  animation: twinkle 2s infinite ease-in-out; /* 闪烁动画 */
+  z-index: 2; /* 确保在内容后面 */
+}
+
+.star:hover {
+  transform: scale(1.5); /* 鼠标悬停时星星放大 */
+}
+
+@keyframes twinkle {
+  0%, 100% {
+      opacity: 0.5;
+  }
+  50% {
+      opacity: 1;
+  }
+}
+
+#notepad textarea {
+  resize: both; /* Enable resizing */
+  overflow: auto; /* Ensure proper scrollbar behavior */
+  font-family: 'Source Code Pro', monospace !important;
+  font-size: 12px;
+}
+
+#notepad {
+  position: fixed;
+  top: 20px; /* Adjusted to align above the sticky note */
+  right: 10px;   /* Same right value as sticky note */
+  width: 20%;  /* Ensure the width is similar if needed */
+  box-shadow: 4px 4px 0px 0px #ccc, 8px 8px 0px 0px #999;
+  opacity: 0;    /* Initially hidden */
+  transition: opacity 2s ease-in-out, transform 2s ease-in-out;  /* Smooth transition */
+}
+
+/* 移除框架相关样式 */
+#video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1; /* 背景层级 */
+}
+
+.video-element {
+  position: absolute;
+  width: 70vw; /* 占屏幕宽度70% */
+  height: auto;
+  z-index: 100; /* 确保视频在前面 */
+  opacity: 0; /* 初始透明，用于渐显效果 */
+  pointer-events: none; /* 禁止交互 */
+  transition: opacity 2s ease-in-out; /* 渐显效果 */
+
+  /* 添加像素风格的边框 */
+  border: 5px solid black;
+  padding: 0px;
+  box-shadow: 4px 4px 0px 0px #ccc, 8px 8px 0px 0px #999;
+  /*left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); /* 通过平移实现完全居中 */
+}
+
+#visualizer-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;  /* 与 visualizer 的宽度保持一致 */
+  height: 100%; /* 高度与 visualizer 保持一致 */
+  border: 10px solid black; /* 黑色边框 */
+  box-sizing: border-box;
+  z-index: 1;  /* 确保在 visualizer 上方 */
+  pointer-events: none; /* 确保边框不影响交互 */
+}

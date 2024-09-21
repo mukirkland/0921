@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For_XX</title>
+    <!-- 引入 Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@600&display=swap" rel="stylesheet">
+    <!-- 引入外部样式表 -->
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入CSS framework -->
+    <link rel="stylesheet" href="https://unpkg.com/@sakun/system.css" />
+    <link rel="icon" href="public/favicon.png">
+    <!-- 引入 GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <!-- 引入 PixiJS -->
+    <script src="https://pixijs.download/release/pixi.js"></script>
+    <audio id="beep-sound" src="public/message-13716.mp3"></audio>
+</head>
+<body>
+    <!-- 完整版本的窗口 -->
+    <div id="sticky-note" class="window" style="position: fixed; bottom: 20px; right: 20px; width: 20%; z-index: 99; display: none;">
+        <div class="title-bar">
+        <button aria-label="Close" class="close" onclick="scaleDownStickyNote()"></button>
+        <h1 class="title">Now Playing</h1>
+        <button aria-label="Resize" disabled class="hidden"></button>
+        </div>
+        <div class="separator"></div>
+        <div class="window-pane" style="display: flex; align-items: center;">
+          <!-- 黑胶唱片图标 -->
+          <img src="public/cover.jpg" alt="Vinyl Cover" class="vinyl-image">
+          <!-- Now playing 信息 -->
+          <div style="flex-grow: 1;">
+            <p style="font-size: 14px; font-weight: bold; margin: 0;">Do Mice Fall in Love with the Stray Cat?</p>
+            <p style="font-size: 12px; text-align: right; color: gray; margin: 0;">- Nizikawa</p>
+          </div>
+        </div>
+    </div> 
+    <!-- 缩小版本的窗口 -->
+    <div id="sticky-note-small" class="window scale-down" style="position: fixed; bottom: 20px; right: 20px; width: 200px; display: none;">
+      <div class="title-bar">
+        <button aria-label="Close" class="close" onclick="expandStickyNote()"></button>
+        <h1 class="title">Now Playing</h1>
+        <button aria-label="Resize" disabled class="hidden"></button>
+    </div>
+    </div>
+    <div id="notepad" class="window" style="position: fixed; top: 20px; right: 20px; width: 20%; height: 400px; z-index: 100; display: none;">
+      <div class="title-bar">
+        <button aria-label="Close" class="close" onclick="closeNotepad()"></button>
+        <h1 class="title">rat_log</h1>
+        <button aria-label="Resize" disabled class="hidden"></button>
+      </div>
+      <div class="separator"></div>
+      <div class="window-pane" style="padding: 10px; overflow-y: auto;">
+        <textarea id="notepad-content" style="width: 100%; height: 90%; font-family: monospace; resize: none; border: none;"></textarea>
+      </div>
+    </div>
+    <div id="notepad-small" class="window scale-down" style="position: fixed; bottom: 20px; right: 20px; width: 200px; display: none;">
+      <div class="title-bar">
+        <button aria-label="Expand" class="close" onclick="expandNotepad()"></button>
+        <h1 class="title">Do Mice Fall in Love with the Stray Cat?</h1>
+      </div>
+    </div>            
+    <!-- 画布和控制台 -->
+    <div id="letter"></div> <!-- 新的显示区域 -->
+    <div id="video-container"></div>
+    <div id="visualizer-border"></div>
+    <canvas id="visualizer"></canvas>
+    <div id="console"></div>
+    <div id="sky" style="display: none"></div> <!-- 这是月亮和星星的容器 -->
+    <!-- 音频元素 -->
+    <audio id="backgroundMusic" src="public/Do_Mice_Fall_in_Love_with_the_Stray_Cat.mp3" loop></audio>
+    <!-- 引入 JavaScript 文件 -->
+    <script type="module" src="main.js"></script>
+</body>
+</html>
